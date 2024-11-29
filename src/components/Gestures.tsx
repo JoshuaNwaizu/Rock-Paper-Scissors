@@ -19,7 +19,6 @@ const Gestures = () => {
   const [playersChoice, setPlayersChoice] = useState<Options | null>(null);
   const [computerChoice, setComputerChoice] = useState<Options | null>(null);
   const [messages, setMessages] = useState<string>("");
-  //   const choices = options.map((item) => item.name);
 
   const getComputerChoice = () => {
     const randomIndex = Math.floor(Math.random() * options.length);
@@ -38,19 +37,23 @@ const Gestures = () => {
       (player.name === "scissors" && computer.name === "paper") ||
       (player.name === "paper" && computer.name === "rock")
     ) {
-      dispatch({
-        type: "UPDATE_SCORE",
-        payload: { playerScore: 1, computerScore: 0 },
-      });
+      setTimeout(() => {
+        dispatch({
+          type: "UPDATE_SCORE",
+          payload: { playerScore: 1, computerScore: 0 },
+        });
+      }, 2000);
       setMessages("You won");
       console.log("You win!");
     } else {
       setMessages("You lose");
       console.log("Computer wins");
-      dispatch({
-        type: "UPDATE_SCORE",
-        payload: { playerScore: -1, computerScore: 1 },
-      });
+      setTimeout(() => {
+        dispatch({
+          type: "UPDATE_SCORE",
+          payload: { playerScore: -1, computerScore: 1 },
+        });
+      }, 2000);
     }
   };
 
