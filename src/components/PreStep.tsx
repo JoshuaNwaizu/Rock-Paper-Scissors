@@ -79,7 +79,7 @@ const PreStep: React.FC<PreStepProps> = ({
         </span>
       </div>
 
-      <div className="item-center flex flex-col md:hidden">
+      <div className="flex flex-col items-center md:hidden">
         {showComputer && (
           <>
             <h1 className="text-[3.5rem] font-bold uppercase text-white">

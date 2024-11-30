@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useGame } from "../contexts/GameContext";
 import PreStep from "./PreStep";
 
@@ -12,10 +12,10 @@ const options: Options[] = [
   { name: "rock", url: "/assets/rock.svg" },
 ];
 const className =
-  "flex h-[9.125rem] w-[9.125rem] items-center justify-center rounded-full";
+  "flex h-[9.125rem] w-[9.125rem] cursor-pointer items-center justify-center rounded-full";
 
 const Gestures = () => {
-  const { dispatch, playerScore, computerScore, startGame } = useGame();
+  const { dispatch, startGame } = useGame();
   const [playersChoice, setPlayersChoice] = useState<Options | null>(null);
   const [computerChoice, setComputerChoice] = useState<Options | null>(null);
   const [messages, setMessages] = useState<string>("");
@@ -28,9 +28,6 @@ const Gestures = () => {
   const playRound = (player: Options, computer: Options) => {
     if (player === computer) {
       setMessages("It's a tie");
-      console.log("its a tie");
-
-      console.log("It's a tie!");
       dispatch({ type: "COMPUTER_CHOICE", payload: computer.name });
     } else if (
       (player.name === "rock" && computer.name === "scissors") ||
@@ -44,7 +41,6 @@ const Gestures = () => {
         });
       }, 2000);
       setMessages("You won");
-      console.log("You win!");
     } else {
       setMessages("You lose");
       console.log("Computer wins");
@@ -60,22 +56,11 @@ const Gestures = () => {
   const handleChooseOption = (choice: Options) => {
     dispatch({ type: "START_GAME" });
     const computerSelected = getComputerChoice();
-    setTimeout(() => {
-      console.log(
-        `Computer choose ${computerSelected.name} and scored: ${computerScore}`,
-      );
-    }, 3000);
-
     setPlayersChoice(choice);
     setComputerChoice(computerSelected);
     playRound(choice, computerSelected);
   };
 
-  useEffect(() => {
-    console.log(
-      `Joshua chose: ${playersChoice?.name} and scored ${playerScore}`,
-    );
-  }, [playersChoice]);
   return (
     <div className="relative mt-[4rem] flex flex-col items-center justify-center">
       {!startGame ? (
@@ -85,7 +70,7 @@ const Gestures = () => {
             alt=""
             className="h-[10.375rem] w-[10.375rem]"
           />
-          <div className="absolute -top-6 flex flex-col items-center gap-2">
+          <div className="absolute flex flex-col items-center gap-2 -top-6">
             <div className="flex w-full justify-between gap-[2rem]">
               {options.slice(0, 2).map((option) => (
                 <span
